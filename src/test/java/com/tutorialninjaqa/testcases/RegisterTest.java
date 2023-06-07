@@ -18,7 +18,7 @@ public class RegisterTest extends Base {
 		super();
 	}
 	
-	WebDriver driver;
+	public WebDriver driver;
 	
 	
 	@BeforeMethod
@@ -107,16 +107,16 @@ public class RegisterTest extends Base {
 		RegisterPage registerPage=new RegisterPage(driver);
 		registerPage.enterFirstName(dataProp.getProperty("firstname"));
 		registerPage.enterlastName(dataProp.getProperty("lastname"));
-		registerPage.enterEmailAddress(Utilities.generateEmailWithTimeStamp());
+		registerPage.enterEmailAddress(prop.getProperty("validEmail"));
 		registerPage.enterTelephone(dataProp.getProperty("telephoneNumber"));
 		registerPage.enterPassword(prop.getProperty("validPassword"));
 		registerPage.confirmPassword(prop.getProperty("validPassword"));
 		registerPage.selectyesNewsLetterOption(); 
 		registerPage.selectPrivacyPolicyField();
 		registerPage.clickOnContinueButton();
-		String actualSuccessHeading =registerPage.retriveDuplicateEmailAddressWarning();
-		 Assert.assertEquals(actualSuccessHeading,dataProp.getProperty("accountSuccessfullyCreatedHeading"),"Account Success page is not displayed");
-			
+		String actualWarning =registerPage.retriveDuplicateEmailAddressWarning();
+		 Assert.assertTrue(actualWarning.contains(dataProp.getProperty("duplicateEmailWarning")),"Warning message regarding duplicate email address not displayed"); 
+		   	
 		
 		
 		

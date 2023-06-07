@@ -18,6 +18,12 @@ public class HomePage {
 	@FindBy(linkText=("Register"))
 	private WebElement RegisterOption;
 	
+	@FindBy(name=("search"))
+	private WebElement searchBoxField;
+	
+	@FindBy(xpath=("//div[@id='search']/descendant::button"))
+	private WebElement searchButton;
+	
 	public HomePage(WebDriver driver) {
 		
 		this.driver=driver;
@@ -35,4 +41,14 @@ public class HomePage {
 	public void selectRegisterOption() {
 		RegisterOption.click();
 	}
+	public void enterProductIntoSearchBoxField(String productText) {
+		searchBoxField.sendKeys(productText);;
+	}
+	public void clickOnSearchButton() {
+		searchButton.click();
+	}
+	
+	
+	
+	
 }

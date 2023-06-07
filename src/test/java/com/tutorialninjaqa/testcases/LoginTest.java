@@ -22,7 +22,7 @@ public class LoginTest extends Base  {
 		super();
 	}
 	
-	WebDriver driver;
+	public WebDriver driver;
 	
 	@BeforeMethod
 	
@@ -47,7 +47,7 @@ public class LoginTest extends Base  {
 	public void verifyLoginWithValidCredentials(String email,String password) {
 	LoginPage loginPage=new LoginPage(driver);
 	loginPage.enterEmailAddress(email);
-	loginPage.enterEmailAddress(password);
+	loginPage.enterPassword(password);
 	loginPage.clickOnLoginButton();
 	
 //	driver.findElement(By.id("input-email")).sendKeys(email);
@@ -110,9 +110,11 @@ public class LoginTest extends Base  {
 		
 		LoginPage loginPage=new LoginPage(driver);
 		loginPage.enterEmailAddress(prop.getProperty("validEmail"));
-		loginPage.enterEmailAddress(dataProp.getProperty("invalidPassword"));
+		loginPage.enterPassword(dataProp.getProperty("invalidPassword"));
 		loginPage.clickOnLoginButton();
 		String actualWarningmessage=loginPage.retriveWarningMessageText();
+		String expWarningmessage=dataProp.getProperty("emailPasswordNoMatchWarning");
+		Assert.assertTrue(actualWarningmessage.contains(expWarningmessage),"Expected warning message is not displayed");
 		
 		
 		
@@ -120,8 +122,8 @@ public class LoginTest extends Base  {
 	//	driver.findElement(By.id("input-password")).sendKeys(dataProp.getProperty("invalidPassword"));
 	//	driver.findElement(By.xpath("//input[@value='Login']")).click();
 	//	String actualWarningmessage=driver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText();
-		String expWarningmessage=dataProp.getProperty("emailPasswordNoMatchWarning");
-		Assert.assertTrue(actualWarningmessage.contains(expWarningmessage),"Expected warning message is not displayed");
+	//	String expWarningmessage=dataProp.getProperty("emailPasswordNoMatchWarning");
+	//	Assert.assertTrue(actualWarningmessage.contains(expWarningmessage),"Expected warning message is not displayed");
 		
 	
 	}	
