@@ -3,6 +3,7 @@ package com.tutorialsninja.qa.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -10,13 +11,16 @@ import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 
 public class Utilities {
 	
 	
 	
-	public static final int Implicit_WAIT_TIME=20;
-	public static final int Page_Wait_Time=15;
+	public static final int Implicit_WAIT_TIME=25;
+	public static final int Page_Wait_Time=20;
 	
 	public static String generateEmailWithTimeStamp() 
 	{
@@ -66,5 +70,19 @@ public class Utilities {
 			
 		}
 		return data;
+	}
+	
+	public static String CapturingScreenShot(WebDriver driver,String testName) {
+		
+		File srcScreenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String destnationScreenShotPath=System.getProperty("user.dir")+"\\ScreenShot\\"+testName+".png";
+		
+		try {
+			org.openqa.selenium.io.FileHandler.copy(srcScreenshot,new File(destnationScreenShotPath));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		return destnationScreenShotPath;
 	}
 }
